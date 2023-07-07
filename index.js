@@ -59,7 +59,10 @@ function deleteMovie(event) {
     event.target.parentNode.remove()
 
     // Add a line that assigns the textContent of a message to say 'Movie Deleted'
-    message.textContent = 'Movie Deleted';
+    message.textContent = `${event.target.parentNode.firstChild.textContent} deleted!`;
+
+    // Call revealMessage
+    revealMessage()
 
 }
 
@@ -70,9 +73,22 @@ function crossOffMovie(event) {
 
     // Create the structure for an if/else block. 
     if (event.target.classList.contains('checked')) {
-        message.textContent = 'Movie Watched!'
+        message.textContent = `${event.target.textContent} watched!`
     } else {
-        message.textContent = ('Movie Added Back!')
+        message.textContent = `${event.target.textContent} added back!`
     }
+
+    // Call revealMessage
+    revealMessage()
 }
 
+// Create a function called revealMessage
+function revealMessage() {
+    // Remove the hide class from msg - this will ensure that the msg isn't hidde when fn in first called
+    message.classList.remove('hide')
+
+    // call setTimeout, passing in a cb function and a time in ms
+    setTimeout(() => {
+        message.classList.add('hide')
+    }, 1000)
+}
